@@ -14,7 +14,6 @@ public class CommandTab implements TabCompleter {
 
     public CommandTab() {
         Bukkit.getPluginCommand("spawner").setTabCompleter(this);
-        
     }
 
     @Override
@@ -28,11 +27,16 @@ public class CommandTab implements TabCompleter {
 
         if (args.length == 1) {
             cmdList.add("give");
+            cmdList.add("set");
             StringUtil.copyPartialMatches(args[0], cmdList, completions);
-
         }
         if (args.length == 2) {
-            cmdList.add("<Player>");
+            if (args[0].equalsIgnoreCase("set")) {
+                cmdList.add("Entity");
+            }
+            else {
+                cmdList.add("<Player>");
+            }
             StringUtil.copyPartialMatches(args[1], cmdList, completions);
         }
         if (args.length == 3) {
@@ -40,7 +44,9 @@ public class CommandTab implements TabCompleter {
             StringUtil.copyPartialMatches(args[2], cmdList, completions);
         }
         if(args.length == 4) {
-            cmdList.add("<Amount>");
+            if (args[0].equalsIgnoreCase("give")) {
+                cmdList.add("<Amount>");
+            }
             StringUtil.copyPartialMatches(args[3], cmdList, completions);
         }
 

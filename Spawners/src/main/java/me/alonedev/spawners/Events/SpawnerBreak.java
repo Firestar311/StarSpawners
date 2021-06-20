@@ -14,6 +14,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+
 public class SpawnerBreak implements Listener {
 
     private Spawners main;
@@ -37,10 +39,16 @@ public class SpawnerBreak implements Listener {
                 CreatureSpawner creatureSpawner = (CreatureSpawner) event.getBlock().getState();
                 ItemStack spawnerItem = new ItemStack(event.getBlock().getType(), 1);
                 ItemMeta spawnerMeta = spawnerItem.getItemMeta();
-                spawnerMeta.setDisplayName(ChatColor.RESET + creatureSpawner.getCreatureTypeName() + " Spawner");
+                String spawner = creatureSpawner.getCreatureTypeName();
+                spawnerMeta.setDisplayName(ChatColor.RESET + spawner + " Spawner");
+                ArrayList<String> lore = new ArrayList<>();
+                lore.add(spawner.toUpperCase());
+                spawnerMeta.setLore(lore);
                 spawnerItem.setItemMeta(spawnerMeta);
                 p.getInventory().addItem(spawnerItem);
         }
+
+        event.setExpToDrop(0);
     }
 
 
