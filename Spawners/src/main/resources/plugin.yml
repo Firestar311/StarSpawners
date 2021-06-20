@@ -1,0 +1,11 @@
+name: Spawners
+version: ${project.version}
+main: me.alonedev.spawners.Spawners
+api-version: 1.16
+authors: [ AloneMusk ]
+description: Spawner plugin for FirecraftMC
+
+commands:
+  spawner:
+    description: Spawners main command!
+
