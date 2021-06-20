@@ -32,9 +32,8 @@ public class SpawnerGive implements CommandExecutor {
             if (args.length == 3) {
                 if (args[0].equalsIgnoreCase("set")) {
                     Block b = pl.getTargetBlock(null, 4);
-                    Util.sendMsg("The block you looked at is: " + b, pl);
                     if (b.getType() == Material.SPAWNER) {
-                        CreatureSpawner creatureSpawner = (CreatureSpawner) b;
+                        CreatureSpawner creatureSpawner = (CreatureSpawner) b.getState();
                         if (args[1].equalsIgnoreCase("Entity")) {
                             creatureSpawner.setSpawnedType(EntityType.valueOf(args[2].toUpperCase()));
                         }

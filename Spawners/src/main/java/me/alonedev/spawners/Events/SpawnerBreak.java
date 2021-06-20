@@ -40,7 +40,7 @@ public class SpawnerBreak implements Listener {
                 ItemStack spawnerItem = new ItemStack(event.getBlock().getType(), 1);
                 ItemMeta spawnerMeta = spawnerItem.getItemMeta();
                 String spawner = creatureSpawner.getCreatureTypeName();
-                spawnerMeta.setDisplayName(ChatColor.RESET + spawner + " Spawner");
+                spawnerMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&',"&c" + spawner + " &eSpawner"));
                 ArrayList<String> lore = new ArrayList<>();
                 lore.add(spawner.toUpperCase());
                 spawnerMeta.setLore(lore);

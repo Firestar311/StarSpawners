@@ -14,7 +14,7 @@ public class SpawnerCreator {
         ItemStack item = new ItemStack(Material.SPAWNER, amount);
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(ChatColor.RESET + spawner + " Spawner");
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&',"&c" + spawner + " &eSpawner"));
         ArrayList<String> lore = new ArrayList<>();
         lore.add(spawner.toUpperCase());
         meta.setLore(lore);
