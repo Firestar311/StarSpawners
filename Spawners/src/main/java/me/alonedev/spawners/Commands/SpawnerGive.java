@@ -29,7 +29,27 @@ public class SpawnerGive implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player pl = (Player) sender;
-            if(args.length == 4) {
+            if (args.length == 3) {
+                if (args[0].equalsIgnoreCase("set")) {
+                    Block b = pl.getTargetBlock(null, 4);
+                    Util.sendMsg("The block you looked at is: " + b, pl);
+                    if (b.getType() == Material.SPAWNER) {
+                        CreatureSpawner creatureSpawner = (CreatureSpawner) b;
+                        if (args[1].equalsIgnoreCase("Entity")) {
+                            creatureSpawner.setSpawnedType(EntityType.valueOf(args[2].toUpperCase()));
+                        }
+                        new BukkitRunnable() {
+
+                            @Override
+                            public void run() {
+                                creatureSpawner.update();
+                            }
+                        }.runTaskLater(main, 1);
+                    }
+                    return true;
+                }
+            }
+            else if(args.length == 4) {
                 if (args[0].equalsIgnoreCase("give")) {
                     String player = args[1];
                     Player p = Bukkit.getServer().getPlayer(player);
@@ -37,25 +57,6 @@ public class SpawnerGive implements CommandExecutor {
                     int amount = Integer.parseInt(args[3]);
                     creator.giveSpawner(p, spawner, amount);
                     return true;
-                } else if (args.length == 3) {
-                    if (args[0].equalsIgnoreCase("set")) {
-                        Block b = pl.getTargetBlock(null, 4);
-                        Util.sendMsg("The block you looked at is: " + b, pl);
-                        if (b.getType() == Material.SPAWNER) {
-                            CreatureSpawner creatureSpawner = (CreatureSpawner) b;
-                            if (args[1].equalsIgnoreCase("Entity")) {
-                                creatureSpawner.setSpawnedType(EntityType.valueOf(args[2].toUpperCase()));
-                            }
-                            new BukkitRunnable() {
-
-                                @Override
-                                public void run() {
-                                    creatureSpawner.update();
-                                }
-                            }.runTaskLater(main, 1);
-                        }
-                        return true;
-                    }
                 }
             }
 
