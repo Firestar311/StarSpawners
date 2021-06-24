@@ -1,4 +1,4 @@
-package me.alonedev.spawners.Commands;
+package com.starmediadev.plugins.spawners.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

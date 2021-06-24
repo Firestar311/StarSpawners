@@ -1,8 +1,7 @@
-package me.alonedev.spawners.Commands;
+package com.starmediadev.plugins.spawners.commands;
 
-import me.alonedev.spawners.Functions.SpawnerCreator;
-import me.alonedev.spawners.Spawners;
-import me.alonedev.spawners.Utils.Util;
+import com.starmediadev.plugins.spawners.Spawners;
+import com.starmediadev.plugins.spawners.functions.SpawnerCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

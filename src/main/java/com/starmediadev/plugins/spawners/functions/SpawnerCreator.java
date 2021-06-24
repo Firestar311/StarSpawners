@@ -1,4 +1,4 @@
-package me.alonedev.spawners.Functions;
+package com.starmediadev.plugins.spawners.functions;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

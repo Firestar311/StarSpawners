@@ -1,6 +1,6 @@
 name: Spawners
 version: ${project.version}
-main: me.alonedev.spawners.Spawners
+main: com.starmediadev.plugins.spawners.Spawners
 api-version: 1.17
 authors: [ AloneMusk ]
 description: Spawner plugin for FirecraftMC

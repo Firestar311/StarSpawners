@@ -1,10 +1,10 @@
-package me.alonedev.spawners;
+package com.starmediadev.plugins.spawners;
 
-import me.alonedev.spawners.Commands.CommandTab;
-import me.alonedev.spawners.Commands.SpawnerGive;
-import me.alonedev.spawners.Events.SpawnerBreak;
-import me.alonedev.spawners.Events.SpawnerPlace;
-import me.alonedev.spawners.Utils.Util;
+import com.starmediadev.plugins.spawners.commands.CommandTab;
+import com.starmediadev.plugins.spawners.commands.SpawnerGive;
+import com.starmediadev.plugins.spawners.events.SpawnerBreak;
+import com.starmediadev.plugins.spawners.events.SpawnerPlace;
+import com.starmediadev.plugins.spawners.utils.Util;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Spawners extends JavaPlugin {

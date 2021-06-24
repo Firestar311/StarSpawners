@@ -1,6 +1,6 @@
-package me.alonedev.spawners.Events;
+package com.starmediadev.plugins.spawners.events;
 
-import me.alonedev.spawners.Spawners;
+import com.starmediadev.plugins.spawners.Spawners;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
