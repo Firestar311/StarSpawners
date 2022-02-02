@@ -1,7 +1,7 @@
-package com.starmediadev.plugins.spawners.commands;
+package com.starmediadev.plugins.starspawners.commands;
 
-import com.starmediadev.plugins.spawners.Spawners;
-import com.starmediadev.plugins.spawners.functions.SpawnerCreator;
+import com.starmediadev.plugins.starspawners.StarSpawners;
+import com.starmediadev.plugins.starspawners.functions.SpawnerCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,9 +16,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class SpawnerGive implements CommandExecutor {
 
     private SpawnerCreator creator;
-    private Spawners main;
+    private StarSpawners main;
 
-    public SpawnerGive(Spawners main){
+    public SpawnerGive(StarSpawners main){
         this.main = main;
         Bukkit.getPluginCommand("spawner").setExecutor(this);
         this.creator = new SpawnerCreator();

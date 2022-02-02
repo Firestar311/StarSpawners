@@ -1,13 +1,13 @@
-package com.starmediadev.plugins.spawners;
+package com.starmediadev.plugins.starspawners;
 
-import com.starmediadev.plugins.spawners.commands.CommandTab;
-import com.starmediadev.plugins.spawners.commands.SpawnerGive;
-import com.starmediadev.plugins.spawners.events.SpawnerBreak;
-import com.starmediadev.plugins.spawners.events.SpawnerPlace;
-import com.starmediadev.plugins.spawners.utils.Util;
+import com.starmediadev.plugins.starspawners.commands.CommandTab;
+import com.starmediadev.plugins.starspawners.commands.SpawnerGive;
+import com.starmediadev.plugins.starspawners.events.SpawnerBreak;
+import com.starmediadev.plugins.starspawners.events.SpawnerPlace;
+import com.starmediadev.plugins.starspawners.utils.Util;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Spawners extends JavaPlugin {
+public final class StarSpawners extends JavaPlugin {
 
     @Override
     public void onEnable() {

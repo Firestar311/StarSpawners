@@ -1,6 +1,6 @@
-package com.starmediadev.plugins.spawners.events;
+package com.starmediadev.plugins.starspawners.events;
 
-import com.starmediadev.plugins.spawners.Spawners;
+import com.starmediadev.plugins.starspawners.StarSpawners;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.CreatureSpawner;
@@ -12,9 +12,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class SpawnerPlace implements Listener {
 
-    private Spawners main;
+    private StarSpawners main;
 
-    public SpawnerPlace(Spawners main) {
+    public SpawnerPlace(StarSpawners main) {
         this.main = main;
         Bukkit.getPluginManager().registerEvents(this, main);
     }

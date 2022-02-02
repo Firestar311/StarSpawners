@@ -1,4 +1,4 @@
-package com.starmediadev.plugins.spawners.functions;
+package com.starmediadev.plugins.starspawners.functions;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

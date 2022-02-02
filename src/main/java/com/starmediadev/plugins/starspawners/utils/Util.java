@@ -1,4 +1,4 @@
-package com.starmediadev.plugins.spawners.utils;
+package com.starmediadev.plugins.starspawners.utils;
 
         import net.md_5.bungee.api.ChatColor;
         import org.bukkit.Bukkit;
