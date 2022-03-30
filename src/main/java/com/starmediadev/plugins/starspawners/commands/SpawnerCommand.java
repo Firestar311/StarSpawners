@@ -3,22 +3,14 @@ package com.starmediadev.plugins.starspawners.commands;
 import com.starmediadev.plugins.starmcutils.util.MCUtils;
 import com.starmediadev.plugins.starspawners.StarSpawners;
 import com.starmediadev.plugins.starspawners.managers.GiveSpawner;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.CreatureSpawner;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.*;
+import org.bukkit.block.*;
+import org.bukkit.command.*;
+import org.bukkit.entity.*;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.StringUtil;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SpawnerCommand implements TabExecutor {
     
@@ -53,7 +45,7 @@ public class SpawnerCommand implements TabExecutor {
             Player p = Bukkit.getPlayer(args[1]);
             String spawner = args[2];
             int amount = Integer.parseInt(args[3]);
-            new GiveSpawner(main, player, amount, spawner.toUpperCase());
+            new GiveSpawner(main, p, amount, spawner.toUpperCase());
             return true;
         }
         if (args[0].equalsIgnoreCase("set")) {
