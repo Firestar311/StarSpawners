@@ -39,13 +39,16 @@ public class SpawnerCommand implements TabExecutor {
             sender.sendMessage(MCUtils.color("&cYou must provide a sub command."));
             return true;
         }
+    
+        if (!player.hasPermission("starspawners.admin")) {
+            player.sendMessage(MCUtils.color("&cYou do not have permission to use that command"));
+            return true;
+        }
         
         if (args[0].equalsIgnoreCase("give")) {
-            if (!player.hasPermission("StarSpawners.admin")) {
-                return false;
-            }
             if (args.length != 4) {
-                return false;
+                player.sendMessage(MCUtils.color("/" + label + " give <entityType> <amount>"));
+                return true;
             }
             Player p = Bukkit.getPlayer(args[1]);
             String spawner = args[2];
@@ -55,14 +58,13 @@ public class SpawnerCommand implements TabExecutor {
         }
         if (args[0].equalsIgnoreCase("set")) {
             if (args.length != 2) {
-                return false;
-            }
-            if (!player.hasPermission("StarSpawners.admin")) {
-                return false;
+                player.sendMessage(MCUtils.color("/" + label + " set <entityType>"));
+                return true;
             }
             Block block = player.getTargetBlock(null, 4);
             if (!block.getType().equals(Material.SPAWNER)) {
-                return false;
+                player.sendMessage(MCUtils.color("&cThe block you are looking at is not a spawner."));
+                return true;
             }
             CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
             creatureSpawner.setSpawnedType(EntityType.valueOf(args[1].toUpperCase()));
@@ -83,7 +85,7 @@ public class SpawnerCommand implements TabExecutor {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> completions = new ArrayList<>();
         List<String> cmdList = new ArrayList<>();
-        if (!sender.hasPermission("StarSpawner.admin")) {
+        if (!sender.hasPermission("starspawner.admin")) {
             return completions;
         }
         if (args.length == 1) {
