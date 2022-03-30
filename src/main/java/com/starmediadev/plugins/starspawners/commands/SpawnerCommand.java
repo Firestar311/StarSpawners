@@ -34,6 +34,12 @@ public class SpawnerCommand implements TabExecutor {
             sender.sendMessage(MCUtils.color("&cOnly players can use that command"));
             return true;
         }
+        
+        if (!(args.length > 0)) {
+            sender.sendMessage(MCUtils.color("&cYou must provide a sub command."));
+            return true;
+        }
+        
         if (args[0].equalsIgnoreCase("give")) {
             if (!player.hasPermission("StarSpawners.admin")) {
                 return false;
