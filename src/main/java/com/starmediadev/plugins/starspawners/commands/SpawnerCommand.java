@@ -2,7 +2,6 @@ package com.starmediadev.plugins.starspawners.commands;
 
 import com.starmediadev.plugins.starmcutils.util.MCUtils;
 import com.starmediadev.plugins.starspawners.StarSpawners;
-import com.starmediadev.plugins.starspawners.managers.GiveSpawner;
 import org.bukkit.*;
 import org.bukkit.block.*;
 import org.bukkit.command.*;
@@ -14,10 +13,10 @@ import java.util.*;
 
 public class SpawnerCommand implements TabExecutor {
     
-    private StarSpawners main;
+    private StarSpawners plugin;
     
-    public SpawnerCommand(StarSpawners main) {
-        this.main = main;
+    public SpawnerCommand(StarSpawners plugin) {
+        this.plugin = plugin;
     }
     
     @Override
@@ -45,7 +44,7 @@ public class SpawnerCommand implements TabExecutor {
             Player p = Bukkit.getPlayer(args[1]);
             String spawner = args[2];
             int amount = Integer.parseInt(args[3]);
-            new GiveSpawner(main, p, amount, spawner.toUpperCase());
+            plugin.getSpawnerManager().giveSpawner(p, amount, spawner);
             return true;
         }
         if (args[0].equalsIgnoreCase("set")) {
@@ -58,16 +57,9 @@ public class SpawnerCommand implements TabExecutor {
                 player.sendMessage(MCUtils.color("&cThe block you are looking at is not a spawner."));
                 return true;
             }
-            CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
-            creatureSpawner.setSpawnedType(EntityType.valueOf(args[1].toUpperCase()));
             
-            new BukkitRunnable() {
-                
-                @Override
-                public void run() {
-                    creatureSpawner.update();
-                }
-            }.runTaskLater(main, 1);
+            CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
+            plugin.getSpawnerManager().setSpawnerType(creatureSpawner, EntityType.valueOf(args[1].toUpperCase()));
             return true;
         }
         return false;

@@ -1,14 +1,12 @@
 package com.starmediadev.plugins.starspawners.events;
 
 import com.starmediadev.plugins.starspawners.StarSpawners;
-import com.starmediadev.plugins.starspawners.managers.GiveSpawner;
 import org.bukkit.Material;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.*;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class SpawnerListener implements Listener {
     private StarSpawners plugin;
@@ -27,7 +25,7 @@ public class SpawnerListener implements Listener {
             return;
         }
         CreatureSpawner creatureSpawner = (CreatureSpawner) e.getBlock().getState();
-        new GiveSpawner(plugin, player, 1, creatureSpawner.getCreatureTypeName().toUpperCase());
+        plugin.getSpawnerManager().giveSpawner(player, 1, creatureSpawner.getSpawnedType().name());
     }
     
     @EventHandler
@@ -36,14 +34,6 @@ public class SpawnerListener implements Listener {
             return;
         }
         CreatureSpawner creatureSpawner = (CreatureSpawner) e.getBlockPlaced().getState();
-        creatureSpawner.setSpawnedType(EntityType.valueOf(plugin.getNMS().getNBTString(e.getItemInHand(), "spawnerType")));
-        
-        new BukkitRunnable() {
-            
-            @Override
-            public void run() {
-                creatureSpawner.update();
-            }
-        }.runTaskLater(plugin, 1);
+        plugin.getSpawnerManager().setSpawnerType(creatureSpawner, creatureSpawner.getSpawnedType());
     }
 }
