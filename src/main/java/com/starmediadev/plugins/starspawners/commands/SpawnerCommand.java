@@ -57,8 +57,17 @@ public class SpawnerCommand implements TabExecutor {
                 return true;
             }
             
+            EntityType entityType; 
+            
+            try {
+                entityType = EntityType.valueOf(args[1].toUpperCase());
+            } catch (IllegalArgumentException e) {
+                player.sendMessage(MCUtils.color("&cInvalid entity type: " + args[1]));
+                return true;
+            }
+            
             CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
-            plugin.getSpawnerManager().setSpawnerType(creatureSpawner, EntityType.valueOf(args[1].toUpperCase()));
+            plugin.getSpawnerManager().setSpawnerType(creatureSpawner, entityType);
             return true;
         }
         return false;
