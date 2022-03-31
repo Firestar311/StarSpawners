@@ -67,7 +67,11 @@ public class SpawnerCommand implements TabExecutor {
             }
             
             CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
-            plugin.getSpawnerManager().setSpawnerType(creatureSpawner, entityType);
+            try {
+                plugin.getSpawnerManager().setSpawnerType(creatureSpawner, entityType);
+            } catch (Exception e) {
+                player.sendMessage(MCUtils.color("&cCould not set " + entityType.name() + " to that spawner"));
+            }
             return true;
         }
         return false;
