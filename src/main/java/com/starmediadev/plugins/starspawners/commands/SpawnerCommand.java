@@ -1,92 +1,110 @@
 package com.starmediadev.plugins.starspawners.commands;
 
+import com.starmediadev.plugins.starmcutils.util.MCUtils;
 import com.starmediadev.plugins.starspawners.StarSpawners;
-import com.starmediadev.plugins.starspawners.managers.GiveSpawner;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.CreatureSpawner;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.*;
+import org.bukkit.block.*;
+import org.bukkit.command.*;
+import org.bukkit.entity.*;
 import org.bukkit.util.StringUtil;
 
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SpawnerCommand implements TabExecutor {
-
-    private StarSpawners main;
-
-    public SpawnerCommand(StarSpawners main) {
-        this.main = main;
+    
+    private StarSpawners plugin;
+    
+    public SpawnerCommand(StarSpawners plugin) {
+        this.plugin = plugin;
     }
-
+    
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            if(args[0].equalsIgnoreCase("give")) {
-                if (!player.hasPermission("StarSpawners.admin")) return false;
-                if (args.length != 4) return false;
-                Player p = Bukkit.getPlayer(args[1]);
-                String spawner = args[2];
-                int amount = Integer.parseInt(args[3]);
-                new GiveSpawner(main, player, amount, spawner.toUpperCase());
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage(MCUtils.color("&cOnly players can use that command"));
+            return true;
+        }
+        
+        if (!(args.length > 0)) {
+            sender.sendMessage(MCUtils.color("&cYou must provide a sub command."));
+            return true;
+        }
+    
+        if (!player.hasPermission("starspawners.admin")) {
+            player.sendMessage(MCUtils.color("&cYou do not have permission to use that command"));
+            return true;
+        }
+        
+        if (args[0].equalsIgnoreCase("give")) {
+            if (args.length != 4) {
+                player.sendMessage(MCUtils.color("/" + label + " give <player> <entityType> <amount>"));
                 return true;
             }
-            if (args[0].equalsIgnoreCase("set")) {
-                if (args.length != 2) return false;
-                if (!player.hasPermission("StarSpawners.admin")) return false;
-                Block block = player.getTargetBlock(null, 4);
-                if (!block.getType().equals(Material.SPAWNER)) return false;
-                CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
-                creatureSpawner.setSpawnedType(EntityType.valueOf(args[1].toUpperCase()));
-
-                new BukkitRunnable() {
-
-                    @Override
-                    public void run() {
-                        creatureSpawner.update();
-                    }
-                }.runTaskLater(main, 1);
+            Player p = Bukkit.getPlayer(args[1]);
+            String spawner = args[2];
+            int amount = Integer.parseInt(args[3]);
+            plugin.getSpawnerManager().giveSpawner(p, amount, spawner);
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("set")) {
+            if (args.length != 2) {
+                player.sendMessage(MCUtils.color("/" + label + " set <entityType>"));
                 return true;
             }
+            Block block = player.getTargetBlock(null, 4);
+            if (!block.getType().equals(Material.SPAWNER)) {
+                player.sendMessage(MCUtils.color("&cThe block you are looking at is not a spawner."));
+                return true;
+            }
+            
+            EntityType entityType; 
+            
+            try {
+                entityType = EntityType.valueOf(args[1].toUpperCase());
+            } catch (IllegalArgumentException e) {
+                player.sendMessage(MCUtils.color("&cInvalid entity type: " + args[1]));
+                return true;
+            }
+            
+            CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
+            try {
+                plugin.getSpawnerManager().setSpawnerType(creatureSpawner, entityType);
+            } catch (Exception e) {
+                player.sendMessage(MCUtils.color("&cCould not set " + entityType.name() + " to that spawner"));
+            }
+            return true;
         }
         return false;
     }
-
+    
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         List<String> completions = new ArrayList<>();
         List<String> cmdList = new ArrayList<>();
-        if(!sender.hasPermission("StarSpawner.admin")) return completions;
-        if(args.length == 1) {
+        if (!sender.hasPermission("starspawner.admin")) {
+            return completions;
+        }
+        if (args.length == 1) {
             cmdList.add("give");
             cmdList.add("set");
             StringUtil.copyPartialMatches(args[0], cmdList, completions);
         }
-        if(args.length == 2) {
-            if(args[0].equalsIgnoreCase("give")) {
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("give")) {
                 cmdList.add("<player>");
             } else {
                 cmdList.add("<entity>");
             }
             StringUtil.copyPartialMatches(args[1], cmdList, completions);
         }
-        if(args.length == 3) {
-            if(args[0].equalsIgnoreCase("give")) {
+        if (args.length == 3) {
+            if (args[0].equalsIgnoreCase("give")) {
                 cmdList.add("<entity>");
                 StringUtil.copyPartialMatches(args[2], cmdList, completions);
             }
         }
-        if(args.length == 4) {
-            if(args[0].equalsIgnoreCase("give")) {
+        if (args.length == 4) {
+            if (args[0].equalsIgnoreCase("give")) {
                 cmdList.add("<amount>");
                 StringUtil.copyPartialMatches(args[3], cmdList, completions);
             }
