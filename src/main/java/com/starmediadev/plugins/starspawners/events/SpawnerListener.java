@@ -7,6 +7,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.*;
+import org.bukkit.inventory.ItemStack;
 
 public class SpawnerListener implements Listener {
     private StarSpawners plugin;
@@ -21,9 +22,16 @@ public class SpawnerListener implements Listener {
         if (!e.getBlock().getType().equals(Material.SPAWNER)) {
             return;
         }
-        if (!e.getPlayer().getItemInHand().containsEnchantment(Enchantment.SILK_TOUCH)) {
+    
+        ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
+        if (item == null) {
             return;
         }
+        
+        if (!item.containsEnchantment(Enchantment.SILK_TOUCH)) {
+            return;
+        }
+        
         CreatureSpawner creatureSpawner = (CreatureSpawner) e.getBlock().getState();
         plugin.getSpawnerManager().giveSpawner(player, 1, creatureSpawner.getSpawnedType().name());
     }
