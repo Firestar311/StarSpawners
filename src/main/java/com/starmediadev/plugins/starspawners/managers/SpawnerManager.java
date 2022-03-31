@@ -1,5 +1,6 @@
 package com.starmediadev.plugins.starspawners.managers;
 
+import com.starmediadev.plugins.starmcutils.util.MCUtils;
 import com.starmediadev.plugins.starspawners.StarSpawners;
 import org.bukkit.*;
 import org.bukkit.block.CreatureSpawner;
@@ -18,7 +19,7 @@ public class SpawnerManager {
         ItemStack spawner = new ItemStack(Material.SPAWNER,amount);
         spawner = plugin.getNMS().addNBTString(spawner, "spawnerType", spawnerName);
         ItemMeta spawnerMeta = spawner.getItemMeta();
-        spawnerMeta.setDisplayName(spawnerName + " spawner");
+        spawnerMeta.setDisplayName(MCUtils.color("&d" + spawnerName + " spawner"));
         spawner.setItemMeta(spawnerMeta);
         player.getInventory().addItem(spawner);
     }
