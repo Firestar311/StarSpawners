@@ -6,7 +6,6 @@ import org.bukkit.*;
 import org.bukkit.block.*;
 import org.bukkit.command.*;
 import org.bukkit.entity.*;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.StringUtil;
 
 import java.util.*;
@@ -38,7 +37,7 @@ public class SpawnerCommand implements TabExecutor {
         
         if (args[0].equalsIgnoreCase("give")) {
             if (args.length != 4) {
-                player.sendMessage(MCUtils.color("/" + label + " give <entityType> <amount>"));
+                player.sendMessage(MCUtils.color("/" + label + " give <player> <entityType> <amount>"));
                 return true;
             }
             Player p = Bukkit.getPlayer(args[1]);
