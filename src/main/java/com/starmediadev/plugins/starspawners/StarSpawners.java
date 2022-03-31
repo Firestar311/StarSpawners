@@ -21,11 +21,6 @@ public final class StarSpawners extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SpawnerListener(this), this);
     }
 
-    @Override
-    public void onDisable() {
-
-    }
-
     public NMS getNMS() {
         return nms;
     }
