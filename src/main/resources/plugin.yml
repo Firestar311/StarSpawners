@@ -1,7 +1,7 @@
 name: StarSpawners
 version: ${project.version}
 main: com.starmediadev.plugins.starspawners.StarSpawners
-api-version: 1.17
+api-version: 1.18
 authors: [ AloneMusk ]
 description: Spawner plugin for FirecraftMC
 depend: [StarMCUtils]
